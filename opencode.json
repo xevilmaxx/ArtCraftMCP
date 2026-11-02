@@ -7,7 +7,9 @@
         "command": [
           "C:\\Program Files\\WordCraft\\wordcraft-cli.exe",
           "mcp",
-          "--allow-path",
+          "--automation-read-root",
+          ".",
+          "--automation-write-root",
           "."
         ]
       },
@@ -16,7 +18,9 @@
         "command": [
           "C:\\Program Files\\VectorCraft\\vectorcraft-cli.exe",
           "mcp",
-          "--allow-path",
+          "--automation-read-root",
+          ".",
+          "--automation-write-root",
           "."
         ]
       },
@@ -34,7 +38,9 @@
         "command": [
           "C:\\Program Files\\PhotoCraft\\photocraft-cli.exe",
           "mcp",
-          "--allow-path",
+          "--automation-read-root",
+          ".",
+          "--automation-write-root",
           "."
         ]
       },
@@ -42,9 +48,7 @@
         "type": "local",
         "command": [
           "C:\\Program Files\\GridCraft\\gridcraft-cli.exe",
-          "mcp",
-          "--allow-path",
-          "."
+          "mcp"
         ]
       },
       "deckcraft": {
@@ -52,7 +56,9 @@
         "command": [
           "C:\\Program Files\\DeckCraft\\deckcraft-cli.exe",
           "mcp",
-          "--allow-path",
+          "--automation-read-root",
+          ".",
+          "--automation-write-root",
           "."
         ]
       },
@@ -61,7 +67,9 @@
         "command": [
           "C:\\Program Files\\PdfCraft\\pdfcraft-cli.exe",
           "mcp",
-          "--allow-path",
+          "--automation-read-root",
+          ".",
+          "--automation-write-root",
           "."
         ]
       },
@@ -69,18 +77,14 @@
         "type": "local",
         "command": [
           "C:\\Program Files\\FilmCraft\\filmcraft-cli.exe",
-          "mcp",
-          "--allow-path",
-          "."
+          "mcp"
         ]
       },
       "lightcraft": {
         "type": "local",
         "command": [
           "C:\\Program Files\\LightCraft\\lightcraft-cli.exe",
-          "mcp",
-          "--allow-path",
-          "."
+          "mcp"
         ]
       },
       "effectcraft": {
@@ -88,25 +92,9 @@
         "command": [
           "C:\\Program Files\\EffectCraft\\effectcraft-cli.exe",
           "mcp",
-          "--allow-path",
-          "."
-        ]
-      },
-      "designcraft": {
-        "type": "local",
-        "command": [
-          "C:\\Program Files\\DesignCraft\\designcraft-cli.exe",
-          "mcp",
-          "--allow-path",
-          "."
-        ]
-      },
-      "figcraft": {
-        "type": "local",
-        "command": [
-          "C:\\Program Files\\FigCraft\\figcraft-cli.exe",
-          "mcp",
-          "--allow-path",
+          "--automation-read-root",
+          ".",
+          "--automation-write-root",
           "."
         ]
       },
@@ -115,16 +103,9 @@
         "command": [
           "C:\\Program Files\\SoundCraft\\soundcraft-cli.exe",
           "mcp",
-          "--allow-path",
-          "."
-        ]
-      },
-      "cadcraft": {
-        "type": "local",
-        "command": [
-          "C:\\Program Files\\CADCraft\\cadcraft-cli.exe",
-          "mcp",
-          "--allow-path",
+          "--automation-read-root",
+          ".",
+          "--automation-write-root",
           "."
         ]
       },
@@ -133,7 +114,9 @@
         "command": [
           "C:\\Program Files\\TextureCraft\\texturecraft-cli.exe",
           "mcp",
-          "--allow-path",
+          "--read-root",
+          ".",
+          "--write-root",
           "."
         ]
       },
@@ -141,9 +124,7 @@
         "type": "local",
         "command": [
           "C:\\Program Files\\Craft Anything\\craft-anything-cli.exe",
-          "mcp",
-          "--allow-path",
-          "."
+          "mcp"
         ]
       }
     }

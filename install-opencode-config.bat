@@ -2,14 +2,21 @@
 setlocal EnableExtensions
 rem ============================================================
 rem  ArtCraftMCP - install-opencode-config.bat
-rem  Copies the repo's opencode.json to the current user's
-rem  global OpenCode config and relaunches OpenCode so the
-rem  ArtCraft MCP servers are picked up.
+rem  Merges this repo's opencode.json into the current user's
+rem  global OpenCode config and relaunches OpenCode.
 rem
-rem  Source : opencode.json next to this .bat (portable, uses
-rem           "--allow-path" "." so no hardcoded username)
+rem  Source : opencode.json next to this .bat (portable, "." roots,
+rem           no hardcoded username)
 rem  Target : %USERPROFILE%\.config\opencode\opencode.json
 rem           (OpenCode global config on Windows)
+rem
+rem  MERGE behavior (does NOT overwrite):
+rem   - every mcp.servers entry from the repo is added/updated
+rem   - entries already in your global config but NOT in the repo
+rem     (e.g. "blender") are KEPT
+rem   - top-level keys already set globally (e.g. "model",
+rem     "small_model") are KEPT; repo only fills gaps
+rem   - a timestamped .bak is written before every change
 rem ============================================================
 
 set "SRC_DIR=%~dp0"
@@ -35,29 +42,21 @@ if not exist "%DST_DIR%" (
 )
 echo   Target dir: "%DST_DIR%"
 
-echo [3/4] Installing global config...
-rem Keep a backup of any existing global config
-if exist "%DST_FILE%" (
-  copy /Y "%DST_FILE%" "%DST_FILE%.bak" >nul
-  if errorlevel 1 (
-    echo WARNING: Could not back up existing config, continuing anyway.
-  ) else (
-    echo   Backed up old config to "%DST_FILE%.bak"
-  )
-)
-copy /Y "%SRC_FILE%" "%DST_FILE%" >nul
+echo [3/4] Merging repo config into global config...
+powershell -NoProfile -ExecutionPolicy Bypass -File "%SRC_DIR%merge-opencode-config.ps1" -Repo "%SRC_FILE%" -GlobalPath "%DST_FILE%"
 if errorlevel 1 (
-  echo ERROR: Copy failed.
+  echo ERROR: Merge failed. Your global config was NOT changed
+  echo        (a .bak is written before any change).
   exit /b 1
 )
-echo   Installed: "%DST_FILE%"
+echo   Merged OK: "%DST_FILE%"
 
 echo [4/4] Relaunching OpenCode...
 where opencode >nul 2>&1
 if errorlevel 1 (
   echo WARNING: 'opencode' not found on PATH.
   echo Install OpenCode first, then re-run this script.
-  echo See README.md ^"Fix: opencode isn't installed or isn't on your PATH^".
+  echo See README.md section "opencode isn't installed or isn't on your PATH".
   exit /b 2
 )
 
@@ -72,6 +71,6 @@ echo.
 echo   Starting OpenCode TUI...
 start "" opencode
 
-echo Done. If a server shows FAILED, that ArtCraft app is probably
-echo not installed at C:\Program Files\... - see README.md.
+echo Done. 'failed' on exactly one server usually means that
+echo ArtCraft app is not installed - see README.md section 4.
 endlocal
