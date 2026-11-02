@@ -78,10 +78,38 @@ foreach ($prop in $repoJson.PSObject.Properties) {
   }
 }
 
-# --- write back (UTF-8, no BOM), depth 10 keeps nested commands intact ---
+# --- serialize with 1-tab indentation (standard) ---
+# NOTE: ConvertTo-Json on Windows PowerShell 5.1 emits ragged spacing
+# (4 spaces, then 16, ...), so we re-indent its output to one tab per level.
 $serverProps = @($repoJson.mcp.servers.PSObject.Properties)
 $serverCount = $serverProps.Count
-$out = $globalObj | ConvertTo-Json -Depth 10
+$rawOut = $globalObj | ConvertTo-Json -Depth 10
+$outLines = @()
+$depth = 0
+foreach ($line in ($rawOut -split "`r?`n")) {
+	$trimmed = $line.TrimStart()
+	if ($trimmed.Length -eq 0) { continue }
+	$emitDepth = $depth
+	if ($trimmed.StartsWith('}') -or $trimmed.StartsWith(']')) {
+		$emitDepth = [math]::Max(0, $depth - 1)
+	}
+	$outLines += (("`t" * $emitDepth) + $trimmed)
+	$inStr = $false
+	$esc = $false
+	$delta = 0
+	foreach ($ch in $trimmed.ToCharArray()) {
+		if ($esc) { $esc = $false; continue }
+		if ($ch -eq [char]92) { if ($inStr) { $esc = $true }; continue }
+		if ($ch -eq '"') { $inStr = -not $inStr; continue }
+		if (-not $inStr) {
+			if ($ch -eq '{' -or $ch -eq '[') { $delta++ }
+			elseif ($ch -eq '}' -or $ch -eq ']') { $delta-- }
+		}
+	}
+	$depth = $depth + $delta
+	if ($depth -lt 0) { $depth = 0 }
+}
+$out = ($outLines -join "`n") + "`n"
 $dir = Split-Path -Parent $GlobalPath
 if (-not (Test-Path -LiteralPath $dir)) {
   New-Item -ItemType Directory -Path $dir -Force | Out-Null

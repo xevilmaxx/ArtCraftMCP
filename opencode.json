@@ -1,132 +1,132 @@
 {
-  "$schema": "https://opencode.ai/config.json",
-  "mcp": {
-    "servers": {
-      "wordcraft": {
-        "type": "local",
-        "command": [
-          "C:\\Program Files\\WordCraft\\wordcraft-cli.exe",
-          "mcp",
-          "--automation-read-root",
-          ".",
-          "--automation-write-root",
-          "."
-        ]
-      },
-      "vectorcraft": {
-        "type": "local",
-        "command": [
-          "C:\\Program Files\\VectorCraft\\vectorcraft-cli.exe",
-          "mcp",
-          "--automation-read-root",
-          ".",
-          "--automation-write-root",
-          "."
-        ]
-      },
-      "solidcraft": {
-        "type": "local",
-        "command": [
-          "C:\\Program Files\\SolidCraft\\solidcraft-cli.exe",
-          "mcp",
-          "--allow-path",
-          "."
-        ]
-      },
-      "photocraft": {
-        "type": "local",
-        "command": [
-          "C:\\Program Files\\PhotoCraft\\photocraft-cli.exe",
-          "mcp",
-          "--automation-read-root",
-          ".",
-          "--automation-write-root",
-          "."
-        ]
-      },
-      "gridcraft": {
-        "type": "local",
-        "command": [
-          "C:\\Program Files\\GridCraft\\gridcraft-cli.exe",
-          "mcp"
-        ]
-      },
-      "deckcraft": {
-        "type": "local",
-        "command": [
-          "C:\\Program Files\\DeckCraft\\deckcraft-cli.exe",
-          "mcp",
-          "--automation-read-root",
-          ".",
-          "--automation-write-root",
-          "."
-        ]
-      },
-      "pdfcraft": {
-        "type": "local",
-        "command": [
-          "C:\\Program Files\\PdfCraft\\pdfcraft-cli.exe",
-          "mcp",
-          "--automation-read-root",
-          ".",
-          "--automation-write-root",
-          "."
-        ]
-      },
-      "filmcraft": {
-        "type": "local",
-        "command": [
-          "C:\\Program Files\\FilmCraft\\filmcraft-cli.exe",
-          "mcp"
-        ]
-      },
-      "lightcraft": {
-        "type": "local",
-        "command": [
-          "C:\\Program Files\\LightCraft\\lightcraft-cli.exe",
-          "mcp"
-        ]
-      },
-      "effectcraft": {
-        "type": "local",
-        "command": [
-          "C:\\Program Files\\EffectCraft\\effectcraft-cli.exe",
-          "mcp",
-          "--automation-read-root",
-          ".",
-          "--automation-write-root",
-          "."
-        ]
-      },
-      "soundcraft": {
-        "type": "local",
-        "command": [
-          "C:\\Program Files\\SoundCraft\\soundcraft-cli.exe",
-          "mcp",
-          "--automation-read-root",
-          ".",
-          "--automation-write-root",
-          "."
-        ]
-      },
-      "texturecraft": {
-        "type": "local",
-        "command": [
-          "C:\\Program Files\\TextureCraft\\texturecraft-cli.exe",
-          "mcp",
-          "--read-root",
-          ".",
-          "--write-root",
-          "."
-        ]
-      },
-      "craftanything": {
-        "type": "local",
-        "command": [
-          "C:\\Program Files\\Craft Anything\\craft-anything-cli.exe",
-          "mcp"
-        ]
-      }
-    }
-  }
+	"$schema": "https://opencode.ai/config.json",
+	"mcp": {
+		"servers": {
+			"wordcraft": {
+				"type": "local",
+				"command": [
+					"C:\\Program Files\\WordCraft\\wordcraft-cli.exe",
+					"mcp",
+					"--automation-read-root",
+					".",
+					"--automation-write-root",
+					"."
+				]
+			},
+			"vectorcraft": {
+				"type": "local",
+				"command": [
+					"C:\\Program Files\\VectorCraft\\vectorcraft-cli.exe",
+					"mcp",
+					"--automation-read-root",
+					".",
+					"--automation-write-root",
+					"."
+				]
+			},
+			"solidcraft": {
+				"type": "local",
+				"command": [
+					"C:\\Program Files\\SolidCraft\\solidcraft-cli.exe",
+					"mcp",
+					"--allow-path",
+					"."
+				]
+			},
+			"photocraft": {
+				"type": "local",
+				"command": [
+					"C:\\Program Files\\PhotoCraft\\photocraft-cli.exe",
+					"mcp",
+					"--automation-read-root",
+					".",
+					"--automation-write-root",
+					"."
+				]
+			},
+			"gridcraft": {
+				"type": "local",
+				"command": [
+					"C:\\Program Files\\GridCraft\\gridcraft-cli.exe",
+					"mcp"
+				]
+			},
+			"deckcraft": {
+				"type": "local",
+				"command": [
+					"C:\\Program Files\\DeckCraft\\deckcraft-cli.exe",
+					"mcp",
+					"--automation-read-root",
+					".",
+					"--automation-write-root",
+					"."
+				]
+			},
+			"pdfcraft": {
+				"type": "local",
+				"command": [
+					"C:\\Program Files\\PdfCraft\\pdfcraft-cli.exe",
+					"mcp",
+					"--automation-read-root",
+					".",
+					"--automation-write-root",
+					"."
+				]
+			},
+			"filmcraft": {
+				"type": "local",
+				"command": [
+					"C:\\Program Files\\FilmCraft\\filmcraft-cli.exe",
+					"mcp"
+				]
+			},
+			"lightcraft": {
+				"type": "local",
+				"command": [
+					"C:\\Program Files\\LightCraft\\lightcraft-cli.exe",
+					"mcp"
+				]
+			},
+			"effectcraft": {
+				"type": "local",
+				"command": [
+					"C:\\Program Files\\EffectCraft\\effectcraft-cli.exe",
+					"mcp",
+					"--automation-read-root",
+					".",
+					"--automation-write-root",
+					"."
+				]
+			},
+			"soundcraft": {
+				"type": "local",
+				"command": [
+					"C:\\Program Files\\SoundCraft\\soundcraft-cli.exe",
+					"mcp",
+					"--automation-read-root",
+					".",
+					"--automation-write-root",
+					"."
+				]
+			},
+			"texturecraft": {
+				"type": "local",
+				"command": [
+					"C:\\Program Files\\TextureCraft\\texturecraft-cli.exe",
+					"mcp",
+					"--read-root",
+					".",
+					"--write-root",
+					"."
+				]
+			},
+			"craftanything": {
+				"type": "local",
+				"command": [
+					"C:\\Program Files\\Craft Anything\\craft-anything-cli.exe",
+					"mcp"
+				]
+			}
+		}
+	}
 }
