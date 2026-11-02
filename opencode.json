@@ -126,6 +126,39 @@
 					"C:\\Program Files\\Craft Anything\\craft-anything-cli.exe",
 					"mcp"
 				]
+			},
+			"cadcraft": {
+				"type": "local",
+				"command": [
+					"C:\\Program Files\\CADCraft\\cadcraft-cli.exe",
+					"mcp",
+					"--automation-read-root",
+					".",
+					"--automation-write-root",
+					"."
+				]
+			},
+			"designcraft": {
+				"type": "local",
+				"command": [
+					"C:\\Program Files\\DesignCraft\\designcraft-cli.exe",
+					"mcp",
+					"--automation-read-root",
+					".",
+					"--automation-write-root",
+					"."
+				]
+			},
+			"figcraft": {
+				"type": "local",
+				"command": [
+					"C:\\Program Files\\FigCraft\\figcraft-cli.exe",
+					"mcp",
+					"--automation-read-root",
+					".",
+					"--automation-write-root",
+					"."
+				]
 			}
 		}
 	}
