@@ -231,9 +231,9 @@ The server's sandbox doesn't include your destination. Either launch OpenCode in
 </details>
 
 <details>
-<summary><strong><code>opencode mcp list</code> says port already in use / shows nothing</strong></summary>
+<summary><strong>Port already in use (<code>opencode mcp list</code>, <code>opencode reload</code>) / shows nothing</strong></summary>
 
-A stale `opencode` process is holding the managed-service port. Find it and stop just that process:
+A stale `opencode` background service is holding managed-service port 28894, so any command needing the service fails with `Failed to start server. Is port 28894 in use?`. Right after killing it, the first command may briefly say `No MCP servers configured` while the service reboots — just run it again. Find the squatter and stop just that process:
 
 ```bat
 powershell -NoProfile -Command "Get-NetTCPConnection -LocalPort 28894 | Select-Object OwningProcess"
