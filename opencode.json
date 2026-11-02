@@ -1,0 +1,151 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "servers": {
+      "wordcraft": {
+        "type": "local",
+        "command": [
+          "C:\\Program Files\\WordCraft\\wordcraft-cli.exe",
+          "mcp",
+          "--allow-path",
+          "."
+        ]
+      },
+      "vectorcraft": {
+        "type": "local",
+        "command": [
+          "C:\\Program Files\\VectorCraft\\vectorcraft-cli.exe",
+          "mcp",
+          "--allow-path",
+          "."
+        ]
+      },
+      "solidcraft": {
+        "type": "local",
+        "command": [
+          "C:\\Program Files\\SolidCraft\\solidcraft-cli.exe",
+          "mcp",
+          "--allow-path",
+          "."
+        ]
+      },
+      "photocraft": {
+        "type": "local",
+        "command": [
+          "C:\\Program Files\\PhotoCraft\\photocraft-cli.exe",
+          "mcp",
+          "--allow-path",
+          "."
+        ]
+      },
+      "gridcraft": {
+        "type": "local",
+        "command": [
+          "C:\\Program Files\\GridCraft\\gridcraft-cli.exe",
+          "mcp",
+          "--allow-path",
+          "."
+        ]
+      },
+      "deckcraft": {
+        "type": "local",
+        "command": [
+          "C:\\Program Files\\DeckCraft\\deckcraft-cli.exe",
+          "mcp",
+          "--allow-path",
+          "."
+        ]
+      },
+      "pdfcraft": {
+        "type": "local",
+        "command": [
+          "C:\\Program Files\\PdfCraft\\pdfcraft-cli.exe",
+          "mcp",
+          "--allow-path",
+          "."
+        ]
+      },
+      "filmcraft": {
+        "type": "local",
+        "command": [
+          "C:\\Program Files\\FilmCraft\\filmcraft-cli.exe",
+          "mcp",
+          "--allow-path",
+          "."
+        ]
+      },
+      "lightcraft": {
+        "type": "local",
+        "command": [
+          "C:\\Program Files\\LightCraft\\lightcraft-cli.exe",
+          "mcp",
+          "--allow-path",
+          "."
+        ]
+      },
+      "effectcraft": {
+        "type": "local",
+        "command": [
+          "C:\\Program Files\\EffectCraft\\effectcraft-cli.exe",
+          "mcp",
+          "--allow-path",
+          "."
+        ]
+      },
+      "designcraft": {
+        "type": "local",
+        "command": [
+          "C:\\Program Files\\DesignCraft\\designcraft-cli.exe",
+          "mcp",
+          "--allow-path",
+          "."
+        ]
+      },
+      "figcraft": {
+        "type": "local",
+        "command": [
+          "C:\\Program Files\\FigCraft\\figcraft-cli.exe",
+          "mcp",
+          "--allow-path",
+          "."
+        ]
+      },
+      "soundcraft": {
+        "type": "local",
+        "command": [
+          "C:\\Program Files\\SoundCraft\\soundcraft-cli.exe",
+          "mcp",
+          "--allow-path",
+          "."
+        ]
+      },
+      "cadcraft": {
+        "type": "local",
+        "command": [
+          "C:\\Program Files\\CADCraft\\cadcraft-cli.exe",
+          "mcp",
+          "--allow-path",
+          "."
+        ]
+      },
+      "texturecraft": {
+        "type": "local",
+        "command": [
+          "C:\\Program Files\\TextureCraft\\texturecraft-cli.exe",
+          "mcp",
+          "--allow-path",
+          "."
+        ]
+      },
+      "craftanything": {
+        "type": "local",
+        "command": [
+          "C:\\Program Files\\Craft Anything\\craft-anything-cli.exe",
+          "mcp",
+          "--allow-path",
+          "."
+        ]
+      }
+    }
+  }
+}
