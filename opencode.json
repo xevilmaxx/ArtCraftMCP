@@ -120,6 +120,17 @@
 					"."
 				]
 			},
+			"materialcraft": {
+				"type": "local",
+				"command": [
+					"C:\\Program Files\\MaterialCraft\\materialcraft-cli.exe",
+					"mcp",
+					"--read-root",
+					".",
+					"--write-root",
+					"."
+				]
+			},
 			"craftanything": {
 				"type": "local",
 				"command": [

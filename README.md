@@ -5,78 +5,52 @@
 [![Windows](https://img.shields.io/badge/Windows-%E2%80%93-blue)](https://github.com/storytold)
 [![OpenCode](https://img.shields.io/badge/OpenCode-MCP_Client-purple)](https://opencode.ai/docs/mcp-servers/)
 [![Config](https://img.shields.io/badge/config-1--tab_indent-green)]()
-[![Servers](https://img.shields.io/badge/servers-16_in_template-brightgreen)]()
+[![Servers](https://img.shields.io/badge/servers-17_in_template-brightgreen)]()
 
-**New here?** Install in under a minute: double-click `install-opencode-config.bat`, then run `opencode mcp list`. Every app installed on your machine should show green (14 here: 13 ArtCraft + blender). Entries for apps you don't have installed show `failed: system cannot find the path specified` — install the app or delete its block. Details in [troubleshooting](#troubleshooting).
+**New here?** Install in under a minute: double-click `install-opencode-config.bat`, then run `opencode mcp list`. Every app installed on your machine should show green (15 here: 14 ArtCraft + blender). Entries for apps you don't have installed show `failed: system cannot find the path specified` — install the app or delete its block. Details in [troubleshooting](#troubleshooting).
 
 ---
 
 ## What this is
 
-OpenCode is an AI coding agent. ArtCraft apps (WordCraft, VectorCraft, SolidCraft…) each ship a headless CLI that can act as a **Model Context Protocol (MCP) server**. This repo wires them together: one portable `opencode.json` covering **all 16 suite apps** as OpenCode tools, plus a one-click installer that discovers which ones exist on your machine and merges only those into your personal config.
+OpenCode is an AI coding agent. ArtCraft apps (WordCraft, VectorCraft, SolidCraft…) each ship a headless CLI that can act as a **Model Context Protocol (MCP) server**. This repo wires them together: one portable `opencode.json` covering **all 17 suite apps** as OpenCode tools, plus a one-click installer that discovers which ones exist on your machine and merges only those into your personal config.
+
+**Install — from template to your machine:**
 
 ```mermaid
 flowchart TB
-    You(["You"]) --> OC["OpenCode agent\nMCP client and host"]
-
-    %% ---- where the config comes from ----
-    subgraph Repo["This repo - portable template"]
-        direction TB
-        TPL["opencode.json\nall 16 ArtCraft servers\n1-tab indent, '.' roots\nno usernames inside"]
-        BAT["install-opencode-config.bat\n1 - back up global config\n2 - merge template\n3 - relaunch OpenCode"]
-        PS1["merge-opencode-config.ps1\nupsert repo servers\nkeep blender, model, small_model\ntimestamped .bak first"]
-    end
-
+    TPL["opencode.json\nall 17 suite apps, 1-tab\n'.' roots, no usernames"]
+    BAT["install-opencode-config.bat"]
+    PS1["merge-opencode-config.ps1\ninstall present exes, skip missing\nkeep blender + models, .bak first"]
+    GLB["global opencode.json\ninstalled servers merged\n14 of 17 on this machine"]
     TPL --> PS1
     BAT --> PS1
-
-    subgraph Machine["Your machine - global config"]
-        GLB["USERPROFILE/.config/opencode/opencode.json\nblender kept, models kept\ninstalled ones merged, missing skipped"]
-    end
-
     PS1 --> GLB
-    GLB --> OC
+```
 
-    %% ---- what OpenCode launches ----
-    OC -- "spawns over stdio, JSON-RPC" --> AUTO
-    OC -- "spawns over stdio" --> SOLO
-    OC -- "spawns over stdio" --> BARE
-    OC -- "leaves untouched" --> KEPT
-    OC -. "optional: drive the live app" .-> LIVE
+**Control — from agent to apps to files:**
 
-    subgraph AUTO["Automation roots: --automation-read-root . --automation-write-root ."]
-        direction LR
-        W["wordcraft-cli"] ~~~ V["vectorcraft-cli"] ~~~ PH["photocraft-cli"] ~~~ D["deckcraft-cli"]
-        PDF["pdfcraft-cli"] ~~~ EF["effectcraft-cli"] ~~~ SO["soundcraft-cli"]
-        CAD["cadcraft-cli\nflags guessed"] ~~~ DES["designcraft-cli\nflags guessed"] ~~~ FIG["figcraft-cli\nflags guessed"]
-    end
+```mermaid
+flowchart LR
+    You(["You"]) --> OC["OpenCode agent"]
+    OC -- "stdio" --> AUTO
+    OC -- "stdio" --> SHORT
+    OC -- "stdio" --> ALLOW
+    OC -- "stdio" --> BARE
+    AUTO["automation roots\nword vector photo deck\npdf effect sound\ncad design fig = guessed"] --> Files
+    SHORT["short roots\ntexture material"] --> Files
+    ALLOW["allow-path\nsolidcraft"] --> Files
+    BARE["bare mcp\ngrid film light\ncraft-anything"] --> Files
+    Files["project files\n. = launch folder"] -- "tool results" --> OC
+```
 
-    subgraph SOLO["Own flag dialects"]
-        direction LR
-        SL["solidcraft-cli\n--allow-path ."]
-        TX["texturecraft-cli\n--read-root . --write-root ."]
-    end
+**Verify — what the list tells you:**
 
-    subgraph BARE["Bare mcp - no root flags on these CLIs"]
-        direction LR
-        GR["gridcraft-cli"] ~~~ FI["filmcraft-cli"] ~~~ LI["lightcraft-cli"] ~~~ CA["craft-anything-cli"]
-    end
-
-    subgraph KEPT["Kept as-is by the merger"]
-        BL["blender via uvx mcp-for-blender"]
-    end
-
-    LIVE["Live app bridge\n--connect / --bridge\nthe running app enforces its own roots"]
-
-    %% ---- what the servers touch ----
-    AUTO -- "reads and writes, gated by roots" --> Files
-    SOLO -- "reads and writes, gated by roots" --> Files
-    BARE -- "session-scoped files only" --> Files
-
-    Files["Your project files\n. = folder where OpenCode launched\nsubfolders included"]
-
-    Files -- "tool results flow back" --> OC
-    OC -- "opencode mcp list" --> OK["14 connected"]
+```mermaid
+flowchart LR
+    L["opencode mcp list"] --> OK["connected\nserver is up"]
+    L --> MISS["failed: cannot find path\napp not installed"]
+    L --> FLAG["failed: unknown option\nwrong flags for that CLI"]
 ```
 
 In short: **OpenCode finds your apps** — not the other way around. Each entry in `opencode.json` tells OpenCode which executable to launch and which folders it may touch.
@@ -87,7 +61,7 @@ In short: **OpenCode finds your apps** — not the other way around. Each entry 
 
 | File | What it does |
 | ---- | ------------ |
-| `opencode.json` | The portable template — all 16 ArtCraft servers, each with its own sandbox flags, `"."` roots, no hardcoded username. |
+| `opencode.json` | The portable template — all 17 ArtCraft servers, each with its own sandbox flags, `"."` roots, no hardcoded username. |
 | `install-opencode-config.bat` | One-click installer. Discovers installed apps, merges them into your global config, backs it up first, then relaunches OpenCode. |
 | `merge-opencode-config.ps1` | The merge engine behind the `.bat`. Installs only servers whose exe exists on disk, skips the rest, keeps everything else you already had. |
 
@@ -100,7 +74,7 @@ All JSON in this repo uses **1-tab indentation** as standard — including every
 ### Option A — one click (recommended)
 
 1. Double-click **`install-opencode-config.bat`**.
-2. It backs up your current global config (`opencode.json.<date>.bak`), discovers which suite exes exist (13 of 16 on this machine), merges those in, and restarts OpenCode.
+2. It backs up your current global config (`opencode.json.<date>.bak`), discovers which suite exes exist (14 of 17 on this machine), merges those in, and restarts OpenCode.
 3. Run `opencode mcp list` — every installed app should be green:
 
 ```text
@@ -111,6 +85,7 @@ All JSON in this repo uses **1-tab indentation** as standard — including every
 ✓ filmcraft      connected
 ✓ gridcraft      connected
 ✓ lightcraft     connected
+✓ materialcraft  connected
 ✓ pdfcraft       connected
 ✓ photocraft     connected
 ✓ solidcraft     connected
@@ -138,14 +113,14 @@ opencode mcp list
 ## Prerequisites
 
 - **OpenCode installed and on `PATH`.** Check with `opencode --version` in a fresh terminal. If it works there but not in your editor, **restart the editor** so it picks up the new `PATH`.
-- **ArtCraft apps installed** under `C:\Program Files\<App>\`. The template covers all 16 suite apps; on this machine `CADCraft`, `DesignCraft` and `FigCraft` aren't installed, so the installer skips those three entries.
+- **ArtCraft apps installed** under `C:\Program Files\<App>\`. The template covers all 17 suite apps; on this machine `CADCraft`, `DesignCraft` and `FigCraft` aren't installed, so the installer skips those three entries.
 - **Windows.** Your global config lives at `%USERPROFILE%\.config\opencode\opencode.json`.
 
 ---
 
 ## Compatibility matrix
 
-Every ArtCraft CLI exposes `mcp`, but each one guards file access with **different flags**. Using the wrong flag is the #1 cause of `✗ failed` lines — 13 entries below were verified against that exe's real `mcp --help` output; the last 3 use the most common flag family as a best guess (those apps aren't installed here) and are marked accordingly.
+Every ArtCraft CLI exposes `mcp`, but each one guards file access with **different flags**. Using the wrong flag is the #1 cause of `✗ failed` lines — 14 entries below were verified against that exe's real `mcp --help` output plus a spawn probe; the last 3 use the most common flag family as a best guess (those apps aren't installed here) and are marked accordingly.
 
 | App | Command tail | Flag family |
 | --- | ------------ | ----------- |
@@ -161,12 +136,41 @@ Every ArtCraft CLI exposes `mcp`, but each one guards file access with **differe
 | effectcraft | `mcp --automation-read-root . --automation-write-root .` | automation roots |
 | soundcraft | `mcp --automation-read-root . --automation-write-root .` | automation roots |
 | texturecraft | `mcp --read-root . --write-root .` | short form, **no** `automation-` prefix |
+| materialcraft | `mcp --read-root . --write-root .` | short form, same dialect as texturecraft |
 | craftanything | `mcp` | bare — `--allow-run` is code-execution consent, not a path gate |
 | cadcraft | `mcp --automation-read-root . --automation-write-root .` | guessed, unverified — app not installed here |
 | designcraft | `mcp --automation-read-root . --automation-write-root .` | guessed, unverified — app not installed here |
 | figcraft | `mcp --automation-read-root . --automation-write-root .` | guessed, unverified — app not installed here |
 
 If you install one of those three, confirm its flags first with `"C:\Program Files\<App>\<cli>.exe" mcp --help` and correct the template if they differ — then re-run the installer. (`solvecraft-cli.exe` exists on disk but prints "deprecated, use solidcraft-cli", so it has no entry.)
+
+---
+
+## App sources on GitHub
+
+Everything official lives under [@storytold](https://github.com/storytold) (the ArtCraft org, [getartcraft.com](https://getartcraft.com)) — each app has its own repo with releases, docs and an issue tracker. This config repo itself is [xevilmaxx/ArtCraftMCP](https://github.com/xevilmaxx/ArtCraftMCP).
+
+| App | GitHub repo | Report a bug (#) |
+| --- | ----------- | ---------------- |
+| wordcraft | [storytold/wordcraft](https://github.com/storytold/wordcraft) | [#issues](https://github.com/storytold/wordcraft/issues) |
+| vectorcraft | [storytold/vectorcraft](https://github.com/storytold/vectorcraft) | [#issues](https://github.com/storytold/vectorcraft/issues) |
+| solidcraft | community app, no official repo link | — |
+| photocraft | [storytold/photocraft](https://github.com/storytold/photocraft) | [#issues](https://github.com/storytold/photocraft/issues) |
+| gridcraft | [storytold/gridcraft](https://github.com/storytold/gridcraft) | [#issues](https://github.com/storytold/gridcraft/issues) |
+| deckcraft | [storytold/deckcraft](https://github.com/storytold/deckcraft) | [#issues](https://github.com/storytold/deckcraft/issues) |
+| pdfcraft | [storytold/pdfcraft](https://github.com/storytold/pdfcraft) | [#issues](https://github.com/storytold/pdfcraft/issues) |
+| filmcraft | [storytold/filmcraft](https://github.com/storytold/filmcraft) | [#issues](https://github.com/storytold/filmcraft/issues) |
+| lightcraft | [storytold/lightcraft](https://github.com/storytold/lightcraft) | [#issues](https://github.com/storytold/lightcraft/issues) |
+| effectcraft | [storytold/effectcraft](https://github.com/storytold/effectcraft) | [#issues](https://github.com/storytold/effectcraft/issues) |
+| soundcraft | [storytold/soundcraft](https://github.com/storytold/soundcraft) | [#issues](https://github.com/storytold/soundcraft/issues) |
+| texturecraft | [storytold/texturecraft](https://github.com/storytold/texturecraft) | [#issues](https://github.com/storytold/texturecraft/issues) |
+| materialcraft | no public repo confirmed | — |
+| craftanything | [storytold/craft-anything](https://github.com/storytold/craft-anything) | [#issues](https://github.com/storytold/craft-anything/issues) |
+| cadcraft | [storytold/cadcraft](https://github.com/storytold/cadcraft) | [#issues](https://github.com/storytold/cadcraft/issues) |
+| designcraft | [storytold/designcraft](https://github.com/storytold/designcraft) | [#issues](https://github.com/storytold/designcraft/issues) |
+| figcraft | [storytold/figcraft](https://github.com/storytold/figcraft) | [#issues](https://github.com/storytold/figcraft/issues) |
+
+Also useful: [storytold/artcraft](https://github.com/storytold/artcraft) (the AI studio) and [storytold/craft-launcher](https://github.com/storytold/craft-launcher) (the app launcher). Found a wrong flag or a new app release that changed the CLI? Open an issue in the app's repo above, or in [this repo](https://github.com/xevilmaxx/ArtCraftMCP/issues).
 
 ---
 
@@ -263,4 +267,4 @@ That was the old installer, which **overwrote** the global file. The current one
 
 - OpenCode config & precedence (`~/.config/opencode/opencode.json`, project `opencode.json`, `OPENCODE_CONFIG` overrides) — [opencode.ai/docs/config](https://opencode.ai/docs/config/)
 - MCP servers (`type: local` + `command`, optional `cwd` / `environment` / `timeout`) — [opencode.ai/docs/mcp-servers](https://opencode.ai/docs/mcp-servers/)
-- The `--allow-path`-everywhere claim from an earlier AI troubleshooting thread is **wrong** — 13 of the 16 [matrix](#compatibility-matrix) entries were verified exe-by-exe on 2026-11-02 (the other 3 use the most common flag family as a guess), and `opencode mcp list` reports every installed server connected.
+- The `--allow-path`-everywhere claim from an earlier AI troubleshooting thread is **wrong** — 14 of the 17 [matrix](#compatibility-matrix) entries were verified exe-by-exe (the other 3 use the most common flag family as a guess), and `opencode mcp list` reports every installed server connected.
