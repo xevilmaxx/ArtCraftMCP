@@ -148,13 +148,13 @@ If you install one of those three, confirm its flags first with `"C:\Program Fil
 
 ## App sources on GitHub
 
-Everything official lives under [@storytold](https://github.com/storytold) (the ArtCraft org, [getartcraft.com](https://getartcraft.com)) — each app has its own repo with releases, docs and an issue tracker. This config repo itself is [xevilmaxx/ArtCraftMCP](https://github.com/xevilmaxx/ArtCraftMCP).
+Almost everything official lives under [@storytold](https://github.com/storytold) (the ArtCraft org, [getartcraft.com](https://getartcraft.com)) — each app has its own repo with releases, docs and an issue tracker. The exception is SolidCraft, a community app by [Tangency Labs](https://github.com/tangency-labs). This config repo itself is [xevilmaxx/ArtCraftMCP](https://github.com/xevilmaxx/ArtCraftMCP).
 
 | App | GitHub repo | Report a bug (#) |
 | --- | ----------- | ---------------- |
 | wordcraft | [storytold/wordcraft](https://github.com/storytold/wordcraft) | [#issues](https://github.com/storytold/wordcraft/issues) |
 | vectorcraft | [storytold/vectorcraft](https://github.com/storytold/vectorcraft) | [#issues](https://github.com/storytold/vectorcraft/issues) |
-| solidcraft | community app, no official repo link | — |
+| solidcraft | [tangency-labs/solidcraft](https://github.com/tangency-labs/solidcraft) (community app) | [#issues](https://github.com/tangency-labs/solidcraft/issues) |
 | photocraft | [storytold/photocraft](https://github.com/storytold/photocraft) | [#issues](https://github.com/storytold/photocraft/issues) |
 | gridcraft | [storytold/gridcraft](https://github.com/storytold/gridcraft) | [#issues](https://github.com/storytold/gridcraft/issues) |
 | deckcraft | [storytold/deckcraft](https://github.com/storytold/deckcraft) | [#issues](https://github.com/storytold/deckcraft/issues) |
@@ -164,7 +164,7 @@ Everything official lives under [@storytold](https://github.com/storytold) (the 
 | effectcraft | [storytold/effectcraft](https://github.com/storytold/effectcraft) | [#issues](https://github.com/storytold/effectcraft/issues) |
 | soundcraft | [storytold/soundcraft](https://github.com/storytold/soundcraft) | [#issues](https://github.com/storytold/soundcraft/issues) |
 | texturecraft | [storytold/texturecraft](https://github.com/storytold/texturecraft) | [#issues](https://github.com/storytold/texturecraft/issues) |
-| materialcraft | no public repo confirmed | — |
+| materialcraft | [storytold/materialcraft](https://github.com/storytold/materialcraft) | [#issues](https://github.com/storytold/materialcraft/issues) |
 | craftanything | [storytold/craft-anything](https://github.com/storytold/craft-anything) | [#issues](https://github.com/storytold/craft-anything/issues) |
 | cadcraft | [storytold/cadcraft](https://github.com/storytold/cadcraft) | [#issues](https://github.com/storytold/cadcraft/issues) |
 | designcraft | [storytold/designcraft](https://github.com/storytold/designcraft) | [#issues](https://github.com/storytold/designcraft/issues) |
