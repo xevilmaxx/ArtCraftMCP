@@ -1,5 +1,5 @@
 # merge-opencode-config.ps1
-# Merges the repo template (all 16 ArtCraft MCP servers) into the user's global
+# Merges the repo template (all suite ArtCraft MCP servers) into the user's global
 # opencode.json WITHOUT deleting anything the user already has
 # (e.g. a "blender" server, "model"/"small_model", plugins).
 # Discovery: only entries whose command[0] .exe exists on this machine are
@@ -71,7 +71,7 @@ if ($null -eq $globalObj.mcp.servers) {
 # A repo entry is installed when its command[0] is an .exe that exists on disk.
 # Non-exe commands (e.g. cmd /c uvx ...) cannot be checked and are always installed.
 # Missing exes are skipped (never added, never touched when already global).
-# The repo template itself always keeps all 16 suite entries.
+# The repo template itself always keeps all suite entries.
 $installed = @()
 $skipped = @()
 foreach ($prop in $repoJson.mcp.servers.PSObject.Properties) {

@@ -131,6 +131,17 @@
 					"."
 				]
 			},
+			"mailcraft": {
+				"type": "local",
+				"command": [
+					"C:\\Program Files\\MailCraft\\mailcraft-cli.exe",
+					"mcp",
+					"--files",
+					".",
+					"--allow",
+					"mailbox"
+				]
+			},
 			"craftanything": {
 				"type": "local",
 				"command": [
@@ -164,6 +175,17 @@
 				"type": "local",
 				"command": [
 					"C:\\Program Files\\FigCraft\\figcraft-cli.exe",
+					"mcp",
+					"--automation-read-root",
+					".",
+					"--automation-write-root",
+					"."
+				]
+			},
+			"anicraft": {
+				"type": "local",
+				"command": [
+					"C:\\Program Files\\AniCraft\\anicraft-cli.exe",
 					"mcp",
 					"--automation-read-root",
 					".",
