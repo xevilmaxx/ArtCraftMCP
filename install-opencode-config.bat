@@ -17,6 +17,9 @@ rem     (e.g. "blender") are KEPT
 rem   - top-level keys already set globally (e.g. "model",
 rem     "small_model") are KEPT; repo only fills gaps
 rem   - a timestamped .bak is written before every change
+rem   - servers whose exe is missing on this machine are skipped
+rem   - apps installed in a different folder (e.g. AniCraft inside
+rem     "C:\Program Files\ArtCraft\") are relocated automatically
 rem ============================================================
 
 set "SRC_DIR=%~dp0"
@@ -71,6 +74,6 @@ echo.
 echo   Starting OpenCode TUI...
 start "" opencode
 
-echo Done. 'failed' on exactly one server usually means that
-echo ArtCraft app is not installed - see README.md section 4.
+echo Done. 'failed' on a server usually means that ArtCraft app
+echo is not installed - see README.md, Troubleshooting.
 endlocal

@@ -72,18 +72,50 @@ if ($null -eq $globalObj.mcp.servers) {
 # Non-exe commands (e.g. cmd /c uvx ...) cannot be checked and are always installed.
 # Missing exes are skipped (never added, never touched when already global).
 # The repo template itself always keeps all suite entries.
+#
+# Some suite apps are not installed in their own "C:\Program Files\<App>\"
+# folder: the ArtCraft studio bundle ships AniCraft inside
+# "C:\Program Files\ArtCraft\AniCraft\". Each candidate below is probed in
+# order and the first exe found wins, so both layouts work.
+$altPaths = @{
+  'anicraft' = @(
+    'C:\Program Files\ArtCraft\AniCraft\anicraft-cli.exe',
+    'C:\Program Files\AniCraft\anicraft-cli.exe'
+  )
+}
 $installed = @()
 $skipped = @()
+$relocated = @()
 foreach ($prop in $repoJson.mcp.servers.PSObject.Properties) {
 	$exe = $null
 	if ($null -ne $prop.Value.command -and $prop.Value.command.Count -gt 0) {
 		$exe = [string]$prop.Value.command[0]
 	}
-	if ($null -ne $exe -and $exe -like '*.exe' -and -not (Test-Path -LiteralPath $exe)) {
+	$candidates = @($exe)
+	if ($altPaths.ContainsKey($prop.Name)) {
+		$candidates = @($altPaths[$prop.Name])
+	}
+	$resolved = $null
+	foreach ($candidate in $candidates) {
+		if ($null -ne $candidate -and $candidate -like '*.exe' -and (Test-Path -LiteralPath $candidate)) {
+			$resolved = $candidate
+			break
+		}
+	}
+	if ($null -ne $exe -and $exe -like '*.exe' -and $null -eq $resolved) {
 		$skipped += $prop.Name
 		continue
 	}
-	$globalObj.mcp.servers | Add-Member -NotePropertyName $prop.Name -NotePropertyValue $prop.Value -Force
+	$entry = $prop.Value
+	if ($null -ne $resolved -and $resolved -ne $exe) {
+		# Template points at a layout this machine does not use: keep the rest
+		# of the entry (type, environment, timeout) and swap in the found exe.
+		$entry = ($prop.Value | ConvertTo-Json -Depth 10) | ConvertFrom-Json
+		$entry.command = @($entry.command)
+		$entry.command[0] = $resolved
+		$relocated += "$($prop.Name) -> $resolved"
+	}
+	$globalObj.mcp.servers | Add-Member -NotePropertyName $prop.Name -NotePropertyValue $entry -Force
 	$installed += $prop.Name
 }
 
@@ -135,6 +167,9 @@ if (-not (Test-Path -LiteralPath $dir)) {
 [System.IO.File]::WriteAllText($GlobalPath, $out, (New-Object System.Text.UTF8Encoding $false))
 Write-Output "Installed $($installed.Count) of $serverCount repo server(s) into $GlobalPath"
 Write-Output "Installed: $($installed -join ', ')"
+if ($relocated.Count -gt 0) {
+	Write-Output "Relocated (exe found at another install path): $($relocated -join '; ')"
+}
 if ($skipped.Count -gt 0) {
 	Write-Output "Skipped (exe not found on this machine, left untouched): $($skipped -join ', ')"
 }

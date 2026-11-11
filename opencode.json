@@ -185,12 +185,8 @@
 			"anicraft": {
 				"type": "local",
 				"command": [
-					"C:\\Program Files\\AniCraft\\anicraft-cli.exe",
-					"mcp",
-					"--automation-read-root",
-					".",
-					"--automation-write-root",
-					"."
+					"C:\\Program Files\\ArtCraft\\AniCraft\\anicraft-cli.exe",
+					"mcp"
 				]
 			}
 		}
